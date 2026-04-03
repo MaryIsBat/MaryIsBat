@@ -1,41 +1,69 @@
-# 🦇 Hi there, I'm MaryGrace! (She/They) 
+<div align="center">
 
-<p align="center">
-  <img src="https://cdn.pixabay.com/animation/2025/09/29/08/37/08-37-10-_512.gif" width="300" alt="Flying Bat">
+<img src="https://cdn.pixabay.com/animation/2025/09/29/08/37/08-37-10-_512.gif" width="250" alt="Flying Bat">
+
+# 🦇 Hi, I'm MaryGrace Hernandez 🦇
+### *Cybersecurity | AI Development | Digital Forensics*
+**She/Her & They/Them • 22 • Thailand**
+
+---
+
+<p align="left">
+  <img src="https://img.shields.io/badge/University-Huachiew%20Chalermprakiet-8B0000?style=flat-square" alt="University">
+  <img src="https://img.shields.io/badge/Focus-Security%20%26%20AI-blueviolet?style=flat-square" alt="Focus">
 </p>
 
-> **Building secure skies and intelligent wings in the digital world.**
+</div>
+
+## 🌑 Into the Batcave
+I am a student at **Huachiew Chalermprakiet University** with a passion for uncovering what lies in the shadows of the digital world. Like a bat using echolocation, I navigate complex systems through the lens of **Cybersecurity** and **AI**. 
+
+My goal is to leverage **digital forensics** and **intelligent systems** to create a safer society and protect digital integrity.
 
 ---
 
-### 🌑 About Me
-I'm a 22-year-old developer and security enthusiast currently navigating the digital night at **Huachiew Chalermprakiet University** in Thailand. Like a bat using echolocation, I enjoy mapping out complex systems to find what's hidden beneath the surface.
-
-* **🔭 Exploring:** The intersection of **Cybersecurity** and **AI Development**.
-* **🛡️ Mission:** Using digital forensics and security insights to help society.
-* **⚡ Fun Fact:** Just like my nocturnal mascots, I do my best thinking when the sun goes down.
+## 🛠️ The Utility Belt
+<table width="100%">
+  <tr>
+    <td width="50%" valign="top">
+      <h4>🕵️ Security & Forensics</h4>
+      <ul>
+        <li>Network Analysis (Wireshark, Nmap)</li>
+        <li>Penetration Testing (Metasploit, Kali)</li>
+        <li>Digital Forensics (Autopsy)</li>
+        <li>System Hardening</li>
+      </ul>
+    </td>
+    <td width="50%" valign="top">
+      <h4>🤖 AI & Development</h4>
+      <ul>
+        <li>Python, C++, SQL, Bash</li>
+        <li>Machine Learning (TensorFlow, PyTorch)</li>
+        <li>Automation & Scripting</li>
+        <li>Data Analysis</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
 ---
 
-### 🛠️ My Utility Belt (Tech Stack)
-
-| Category | Tools & Languages |
-| :--- | :--- |
-| **Languages** | Python, C++, SQL, Bash |
-| **Security** | Wireshark, Metasploit, Autopsy, Nmap |
-| **AI/ML** | TensorFlow, PyTorch, Scikit-learn |
-| **Environment** | Kali Linux, GitHub, VS Code |
+## 📊 Nightly Reconnaissance
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME_HERE&show_icons=true&theme=tokyonight&hide_border=true" alt="GitHub Stats" />
+</p>
 
 ---
 
-### 📊 My Nightly Activity
-![Your GitHub Stats](https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME_HERE&show_icons=true&theme=tokyonight&hide_border=true)
+## 🦇 Signal for Help (Connect with Me)
+<div align="center">
 
----
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](YOUR_LINKEDIN_URL)
+[![Portfolio](https://img.shields.io/badge/Portfolio-222222?style=for-the-badge&logo=ko-fi&logoColor=white)](YOUR_PORTFOLIO_URL)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your-email@example.com)
 
-### 🦇 Let's Connect!
-* **LinkedIn:** [Your Profile Link]
-* **Portfolio:** [Your Website Link]
-* **Email:** [Your Email Address]
+<br />
 
-*"The night is darkest just before the dawn. And I'm here to make sure that dawn is secure."*
+> *"The night is darkest just before the dawn. I'm here to ensure that dawn arrives securely."*
+
+</div>
