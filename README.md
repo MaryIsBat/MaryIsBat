@@ -3,22 +3,22 @@
 <img src="https://cdn.pixabay.com/animation/2025/09/29/08/37/08-37-10-_512.gif" width="250" alt="Flying Bat">
 
 # 🦇 Hi, I'm MaryGrace Hernandez 🦇
-### *Cybersecurity | AI Development | Digital Forensics*
+### *Data Analysis | AI Development | Business Intelligence*
 **She/Her & They/Them • 22 • Thailand**
 
 ---
 
 <p align="left">
   <img src="https://img.shields.io/badge/University-Huachiew%20Chalermprakiet-8B0000?style=flat-square" alt="University">
-  <img src="https://img.shields.io/badge/Focus-Security%20%26%20AI-blueviolet?style=flat-square" alt="Focus">
+  <img src="https://img.shields.io/badge/Focus-Data%20%26%20AI-blueviolet?style=flat-square" alt="Focus">
 </p>
 
 </div>
 
 ## 🌑 Into the Batcave
-I am a student at **Huachiew Chalermprakiet University** with a passion for uncovering what lies in the shadows of the digital world. Like a bat using echolocation, I navigate complex systems through the lens of **Cybersecurity** and **AI**. 
+I am a student at **Huachiew Chalermprakiet University** with a passion for uncovering insights hidden within data. Like a bat using echolocation, I navigate complex datasets through the lens of **Data Analysis** and **AI**. 
 
-My goal is to leverage **digital forensics** and **intelligent systems** to create a safer society and protect digital integrity.
+My goal is to leverage **data understanding** and **intelligent systems** to drive informed decisions and create meaningful impact through data-driven storytelling.
 
 ---
 
@@ -26,21 +26,21 @@ My goal is to leverage **digital forensics** and **intelligent systems** to crea
 <table width="100%">
   <tr>
     <td width="50%" valign="top">
-      <h4>🕵️ Security & Forensics</h4>
+      <h4>📊 Data Analyst & Understanding</h4>
       <ul>
-        <li>Network Analysis (Wireshark, Nmap)</li>
-        <li>Penetration Testing (Metasploit, Kali)</li>
-        <li>Digital Forensics (Autopsy)</li>
-        <li>System Hardening</li>
+        <li>Data Visualization (Tableau, Power BI)</li>
+        <li>Statistical Analysis & Interpretation</li>
+        <li>Data Cleaning & Preparation</li>
+        <li>Business Intelligence Basics</li>
       </ul>
     </td>
     <td width="50%" valign="top">
       <h4>🤖 AI & Development</h4>
       <ul>
-        <li>Python, C++, SQL, Bash</li>
-        <li>Machine Learning (TensorFlow, PyTorch)</li>
+        <li>Python, SQL, Bash</li>
+        <li>Machine Learning Fundamentals (TensorFlow, PyTorch)</li>
         <li>Automation & Scripting</li>
-        <li>Data Analysis</li>
+        <li>Data Analysis & Exploration</li>
       </ul>
     </td>
   </tr>
@@ -64,6 +64,6 @@ My goal is to leverage **digital forensics** and **intelligent systems** to crea
 
 <br />
 
-> *"The night is darkest just before the dawn. I'm here to ensure that dawn arrives securely."*
+> *"Data tells a story. I'm here to help reveal it."*
 
 </div>
