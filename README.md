@@ -30,9 +30,7 @@ Welcome to my **interactive portfolio**! This is a fully functional website wher
 
 ### **🌐 Portfolio Options:**
 
-[![📂 Open Interactive Folder](https://img.shields.io/badge/📂%20Open%20Interactive%20Folder-Click%20Here-e94560?style=for-the-badge)](https://maryisbat.github.io/MaryIsBat/index.html)
-
-[![🗂️ Browse Projects](https://img.shields.io/badge/🗂️%20Browse%20Projects-Click%20Here-4a90e2?style=for-the-badge)](https://maryisbat.github.io/MaryIsBat/projects.html)
+[CHECK OUT MY PROJECTS COLLECTION!](https://img.shields.io/badge/📂%20Open%20Interactive%20Folder-Click%20Here-e94560?style=for-the-badge)](https://maryisbat.github.io/MaryIsBat/index.html)
 
 </div>
 
