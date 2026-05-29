@@ -16,16 +16,32 @@
 </div>
 
 ## 🌑 Into the Batcave
-I am a student at **Huachiew Chalermprakiet University** with a passion for uncovering insights hidden within data. Like a bat using echolocation, I navigate complex datasets through the lens of *[...]
+I am a student at **Huachiew Chalermprakiet University** with a passion for uncovering insights hidden within data. Like a bat using echolocation, I navigate complex datasets through the lens of data analysis and AI development.
 
 My goal is to leverage **data understanding** and **intelligent systems** to drive informed decisions and create meaningful impact through data-driven storytelling.
 
 ---
 
-## 🎨 View My Interactive Portfolio
-[![Open Interactive Portfolio](https://img.shields.io/badge/🌐%20Open%20Interactive%20Portfolio-Click%20Here-e94560?style=for-the-badge)](https://maryisbat.github.io/MaryIsBat/)
+## 🎨 Interactive Portfolio Hub
 
-*Click the button above to see my full interactive portfolio with animations and styling!*
+Welcome to my interactive portfolio! Explore my projects directly below. Click the folder to open it and browse through my work using the colored tabs.
+
+<div align="center">
+
+[![Open Full Portfolio in New Tab](https://img.shields.io/badge/🌐%20Open%20Full%20Portfolio-Click%20Here-e94560?style=for-the-badge)](https://maryisbat.github.io/MaryIsBat/)
+
+</div>
+
+### 📂 My Projects & Lab Work
+- **Web Hub** - Full-stack web applications and interactive pages
+- **Hotel System** - Hotel management simulator
+- **Voice AI** - Voice recognition and AI features
+- **BTS Card** - Interactive card experience
+- **Data Presentation** - Data visualization and insights
+- **Voice Detector** - Advanced voice detection capabilities
+- **Achievements** - My accomplishments and milestones
+
+*For the best experience, [open the full interactive portfolio](https://maryisbat.github.io/MaryIsBat/) in your browser!*
 
 ---
 
@@ -46,7 +62,7 @@ My goal is to leverage **data understanding** and **intelligent systems** to dri
       <ul>
         <li>Python, SQL, Bash</li>
         <li>Machine Learning Fundamentals (TensorFlow, PyTorch)</li>
-        <li>Automation & Scripting</li>
+        <li>Web Development (HTML, CSS, JavaScript)</li>
         <li>Data Analysis & Exploration</li>
       </ul>
     </td>
@@ -57,7 +73,7 @@ My goal is to leverage **data understanding** and **intelligent systems** to dri
 
 ## 📊 Nightly Reconnaissance
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME_HERE&show_icons=true&theme=tokyonight&hide_border=true" alt="GitHub Stats" />
+  <img src="https://github-readme-stats.vercel.app/api?username=MaryIsBat&show_icons=true&theme=tokyonight&hide_border=true" alt="GitHub Stats" />
 </p>
 
 ---
