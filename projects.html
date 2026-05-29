@@ -38,7 +38,8 @@
 
         <!-- Embedded Project Frame -->
         <div class="iframe-wrapper">
-          <iframe id="projectIFrame" name="projectIFrame" class="iframe-display" aria-label="Project Viewer"></iframe>
+          <!-- Dynamic content container (replaces iframe) -->
+          <div id="projectContent" class="iframe-display" style="width: 100%; height: 100%; overflow: auto; background: #ffffff;"></div>
           
           <!-- Inner Page Welcome/Fallback Content -->
           <div id="iframeWelcome" class="iframe-placeholder">
@@ -96,7 +97,7 @@
       } catch (err) {}
     }
 
-    // Load selected project into the iframe
+    // Load selected project using fetch instead of iframe
     function loadProject(tabElement) {
       playTabSound();
 
@@ -108,16 +109,33 @@
       tabElement.classList.add('active-tab');
 
       const projectSrc = tabElement.getAttribute('data-src');
-      const iframe = document.getElementById('projectIFrame');
+      const projectContent = document.getElementById('projectContent');
       const welcome = document.getElementById('iframeWelcome');
 
       if (projectSrc) {
         welcome.style.display = 'none';
-        iframe.style.display = 'block';
-        iframe.src = projectSrc;
+        projectContent.style.display = 'block';
+        
+        // Fetch and load the HTML content
+        fetch(projectSrc)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`Failed to load ${projectSrc}`);
+            }
+            return response.text();
+          })
+          .then(html => {
+            projectContent.innerHTML = html;
+            // Reset scroll to top
+            projectContent.scrollTop = 0;
+          })
+          .catch(error => {
+            console.error('Error loading project:', error);
+            projectContent.innerHTML = `<div style="padding: 2rem; text-align: center; color: #888;"><p>⚠️ Failed to load project. Please try again.</p></div>`;
+          });
       } else {
-        iframe.style.display = 'none';
-        iframe.src = '';
+        projectContent.style.display = 'none';
+        projectContent.innerHTML = '';
         welcome.style.display = 'flex';
       }
     }
