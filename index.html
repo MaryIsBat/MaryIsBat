@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mary Grace Hernandez | Portfolio Hub</title>
+  <meta name="description" content="Portfolio Hub of Mary Grace Hernandez, Computer Science student at HCU. Explore interactive coding projects and full-stack applications.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="fade-in-page">
+
+  <!-- Optional Background Ambient Music/Sound effect -->
+  <div class="utility-bar">
+    <button class="utility-btn" id="soundBtn" title="Toggle Page Ambiance" aria-label="Toggle Page Ambiance">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 16H9v-6h2v6zm4 0h-2V6h2v12z"/>
+      </svg>
+    </button>
+  </div>
+
+  <main class="portfolio-container">
+    
+    <!-- Character Column (Mary + Mudkip) -->
+    <section class="character-column" aria-label="Mary Grace Portrait">
+      <div class="character-wrapper">
+        <!-- Default State -->
+        <img src="assets/mary1.png" alt="Mary Grace Hernandez Portrait" class="character-img mary-default">
+        <!-- Hover Blink State (Super cute secret micro-interaction) -->
+        <img src="assets/mary2.png" alt="Mary Grace Hernandez Portrait Blinking" class="character-img mary-blink">
+      </div>
+    </section>
+
+    <!-- Folder Column (Closed Yellow Folder Cover) -->
+    <section class="folder-column" aria-label="Portfolio Folder">
+      <a href="projects.html" class="folder-cover-link" id="folderLink">
+        <img src="assets/filefront.png" alt="Mary Grace Hernandez - ComSci HCU Portfolio Notebook Cover" class="folder-cover-img">
+        <div class="folder-tooltip">Click to Open Folder! 📂</div>
+      </a>
+    </section>
+
+  </main>
+
+  <!-- Interactive Sound Ambiance / Clicking transition scripts -->
+  <script>
+    // Audio ambiance configuration
+    const soundBtn = document.getElementById('soundBtn');
+    let audioContext;
+    let oscillator;
+    let isPlaying = false;
+
+    soundBtn.addEventListener('click', () => {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      
+      if (!isPlaying) {
+        // Start a gentle warm synth hum
+        oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.type = 'triangle';
+        oscillator.frequency.setValueAtTime(110, audioContext.currentTime); // Low A note
+        
+        gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.start();
+        isPlaying = true;
+        soundBtn.style.color = '#f4b251';
+        soundBtn.style.borderColor = '#f4b251';
+      } else {
+        oscillator.stop();
+        isPlaying = false;
+        soundBtn.style.color = '';
+        soundBtn.style.borderColor = '';
+      }
+    });
+
+    // Seamless click sound effect on folder
+    const folderLink = document.getElementById('folderLink');
+    folderLink.addEventListener('click', (e) => {
+      // Create a cute quick retro sound when opening the folder
+      try {
+        const clickContext = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = clickContext.createOscillator();
+        const gain = clickContext.createGain();
+        osc.connect(gain);
+        gain.connect(clickContext.destination);
+        
+        osc.frequency.setValueAtTime(440, clickContext.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, clickContext.currentTime + 0.15);
+        
+        gain.gain.setValueAtTime(0.1, clickContext.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, clickContext.currentTime + 0.15);
+        
+        osc.start();
+        osc.stop(clickContext.currentTime + 0.15);
+      } catch (err) {
+        // Audio context block browser safeguard
+      }
+    });
+  </script>
+</body>
+</html>
