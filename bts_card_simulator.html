@@ -159,6 +159,15 @@
       gap: 8px;
     }
 
+    /* Tab Panes */
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
     /* Vending Machine Terminal Graphic */
     .vending-console {
       display: grid;
@@ -499,22 +508,22 @@
     <main class="layout-grid">
       <!-- Navigation Tabs -->
       <nav class="nav-card">
-        <button class="nav-btn active" onclick="showTab('vending', this)">
+        <button class="nav-btn active" data-tab="vending" type="button">
           <i class="bi bi-ticket-perforated"></i> Ticket Machine
         </button>
-        <button class="nav-btn" onclick="showTab('rabbit', this)">
+        <button class="nav-btn" data-tab="rabbit" type="button">
           <i class="bi bi-credit-card-2-front"></i> Smart Rabbit Card
         </button>
-        <button class="nav-btn" onclick="showTab('download', this)">
+        <button class="nav-btn" data-tab="download" type="button">
           <i class="bi bi-download"></i> Desktop Executable
         </button>
       </nav>
 
       <!-- Main Panel content -->
-      <section class="content-card">
+      <div class="content-card">
         
         <!-- Tab: Vending Machine -->
-        <div id="tab-vending" class="tab-pane">
+        <section id="tab-vending" class="tab-pane active">
           <h2 class="section-title"><i class="bi bi-ticket-detailed"></i> Vending Kiosk Terminal (Single Journey)</h2>
           
           <div class="vending-console">
@@ -553,7 +562,7 @@
             <!-- Right: Payment & Status panel -->
             <div class="vending-panel">
               <div class="info-display" id="vendDisplay">
-                SELECT DEPARTURE STATION ON THE MAP PANEL.<br>
+                SELECT DEPARTURE STATION.<br>
                 -------------------------<br>
                 FARE: 0฿
               </div>
@@ -577,10 +586,10 @@
               </button>
             </div>
           </div>
-        </div>
+        </section>
 
         <!-- Tab: Smart Rabbit Card -->
-        <div id="tab-rabbit" class="tab-pane" style="display:none;">
+        <section id="tab-rabbit" class="tab-pane">
           <h2 class="section-title"><i class="bi bi-credit-card-2-front"></i> Rabbit Smart Card Integration</h2>
           <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem; line-height:1.4;">
             Check balances, tap at station gates, or reload virtual cash onto your custom card.
@@ -638,16 +647,16 @@
               <button class="coin-btn" onclick="topUpCard(200)">+200฿</button>
             </div>
           </div>
-        </div>
+        </section>
 
         <!-- Tab: Download .exe -->
-        <div id="tab-download" class="tab-pane" style="display:none;">
+        <section id="tab-download" class="tab-pane">
           <h2 class="section-title"><i class="bi bi-laptop"></i> Download Windows Executable App</h2>
           <div class="download-card">
             <i class="bi bi-file-earmark-binary-fill" style="font-size: 3rem; color: var(--bts-blue);"></i>
             <h3 style="font-weight: 700;">btscardproject_mostrecent.exe</h3>
             <p style="font-size:0.85rem; color:var(--text-muted); max-width:400px; line-height:1.5;">
-              This is the compiled Windows Desktop version of the BTS ticketing routing calculator built in C#. It handles route tree calculations, cash transaction inputs, change payout logic, and diagnostic console reports.
+              This is the compiled Windows Desktop version of the BTS ticketing routing calculator built in C#. It handles route tree calculations, cash transaction inputs, and change payout logic.
             </p>
             <a href="btscardproject_mostrecent.exe" class="download-btn" download>
               <i class="bi bi-download"></i> Download Executable (334 KB)
@@ -656,21 +665,29 @@
               MD5: fca2899cf4a713801f92e10a373d32ef | Runs on Windows 10/11 natively.
             </span>
           </div>
-        </div>
+        </section>
 
-      </section>
+      </div>
     </main>
   </div>
 
   <script>
+    // Initialize tabs with event listeners
+    document.querySelectorAll('[data-tab]').forEach(button => {
+      button.addEventListener('click', function() {
+        const tabName = this.getAttribute('data-tab');
+        showTab(tabName, this);
+      });
+    });
+
     // Tab controls
     function showTab(tabId, el) {
       playBeep(800, 0.05);
       document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
       el.classList.add('active');
 
-      document.querySelectorAll('.tab-pane').forEach(panel => panel.style.display = 'none');
-      document.getElementById(`tab-${tabId}`).style.display = 'block';
+      document.querySelectorAll('.tab-pane').forEach(panel => panel.classList.remove('active'));
+      document.getElementById(`tab-${tabId}`).classList.add('active');
     }
 
     // Station list mapping
@@ -690,7 +707,6 @@
     function clickStation(idx) {
       playBeep(600, 0.08);
 
-      // If we haven't selected departure yet
       if (depStationIdx === -1) {
         depStationIdx = idx;
         document.getElementById(`node-${idx}`).classList.add('selected-dep');
@@ -698,7 +714,6 @@
         return;
       }
 
-      // If departure is selected, but destination is not
       if (destStationIdx === -1 && idx !== depStationIdx) {
         destStationIdx = idx;
         document.getElementById(`node-${idx}`).classList.add('selected-dest');
@@ -707,7 +722,6 @@
         return;
       }
 
-      // Reset selection if we click again
       cancelVending();
       depStationIdx = idx;
       document.getElementById(`node-${idx}`).classList.add('selected-dep');
@@ -716,7 +730,6 @@
 
     function calculateFare() {
       if (depStationIdx !== -1 && destStationIdx !== -1) {
-        // Simple fare logic matching BTS zones
         const delta = Math.abs(stations[depStationIdx].fareRate - stations[destStationIdx].fareRate);
         totalFare = delta === 0 ? 0 : 17 + Math.ceil(delta / 2);
       } else {
@@ -728,22 +741,21 @@
       const display = document.getElementById('vendDisplay');
       
       if (depStationIdx === -1) {
-        display.innerHTML = `SELECT DEPARTURE STATION ON THE MAP PANEL.<br>-------------------------<br>FARE: 0฿`;
+        display.innerHTML = `SELECT DEPARTURE STATION.<br>-------------------------<br>FARE: 0฿`;
         return;
       }
 
       if (destStationIdx === -1) {
-        display.innerHTML = `DEPARTURE: ${stations[depStationIdx].name}<br>SELECT DESTINATION STATION ON THE PANEL.<br>-------------------------<br>FARE: 0฿`;
+        display.innerHTML = `DEPARTURE: ${stations[depStationIdx].name}<br>SELECT DESTINATION.<br>-------------------------<br>FARE: 0฿`;
         return;
       }
 
       const balanceNeeded = totalFare - insertedCash;
       if (balanceNeeded > 0) {
-        display.innerHTML = `ROUTE: ${stations[depStationIdx].name} ➔ ${stations[destStationIdx].name}<br>FARE: ${totalFare}฿<br>INSERTED: ${insertedCash}฿<br>-------------------------<br>PLEASE INSERT ${balanceNeeded}฿`;
+        display.innerHTML = `ROUTE: ${stations[depStationIdx].name} ➔ ${stations[destStationIdx].name}<br>FARE: ${totalFare}฿<br>INSERTED: ${insertedCash}฿<br>NEED: ${balanceNeeded}฿`;
       } else {
-        // Complete transaction
         const change = insertedCash - totalFare;
-        display.innerHTML = `ROUTE: ${stations[depStationIdx].name} ➔ ${stations[destStationIdx].name}<br>TRANSACTION SUCCESSFUL!<br>-------------------------<br>DISPENSING TICKET...<br>CHANGE RETURNED: ${change}฿`;
+        display.innerHTML = `TRANSACTION COMPLETE!<br>DISPENSING TICKET...<br>CHANGE: ${change}฿`;
         playSuccessChime();
         
         setTimeout(() => {
@@ -769,7 +781,6 @@
       totalFare = 0;
       insertedCash = 0;
 
-      // Remove map selected classes
       for (let i = 0; i < 5; i++) {
         const el = document.getElementById(`node-${i}`);
         if(el) {
@@ -782,7 +793,7 @@
 
     // Rabbit Card Simulations
     let rabbitBalance = 150;
-    let gateStatus = "idle"; // "idle", "entered"
+    let gateStatus = "idle";
     let entryStation = "";
 
     function topUpCard(val) {
@@ -799,14 +810,12 @@
 
       if (type === 'in') {
         if (gateStatus === 'entered') {
-          // Double enter alert
           flashGate('in', false);
           screenIn.innerHTML = `CARD ALREADY USED<br>EXIT GATES FIRST`;
           return;
         }
 
         if (rabbitBalance < 17) {
-          // Insufficient fare safeguard
           flashGate('in', false);
           screenIn.innerHTML = `INSUFFICIENT BAL.<br>BALANCE: ${rabbitBalance}฿`;
           return;
@@ -817,14 +826,12 @@
         flashGate('in', true);
         screenIn.innerHTML = `ENTRY RECORDED<br>SIAM STATION`;
       } else {
-        // Exit Tap
         if (gateStatus !== 'entered') {
           flashGate('out', false);
           screenOut.innerHTML = `ERROR: NO ENTRY CODE<br>TAP ENTER FIRST`;
           return;
         }
 
-        // Deduct fare (simulate Siam -> Asok fare = 29฿)
         const fare = 29;
         if (rabbitBalance < fare) {
           flashGate('out', false);
@@ -891,14 +898,13 @@
           osc.start(ctx.currentTime + start);
           osc.stop(ctx.currentTime + start + dur);
         };
-        playNote(523.25, 0.0, 0.15); // C5
-        playNote(659.25, 0.08, 0.15); // E5
-        playNote(783.99, 0.16, 0.35); // G5
+        playNote(523.25, 0.0, 0.15);
+        playNote(659.25, 0.08, 0.15);
+        playNote(783.99, 0.16, 0.35);
       } catch(e){}
     }
 
     function playGateSoundSuccess() {
-      // High pitch double beep typical of transit gates
       try {
         const ctx = getAudioContext();
         const playNote = (freq, start, dur) => {
@@ -912,20 +918,19 @@
           osc.start(ctx.currentTime + start);
           osc.stop(ctx.currentTime + start + dur);
         };
-        playNote(1046.50, 0.0, 0.08); // C6
-        playNote(1046.50, 0.12, 0.08); // C6
+        playNote(1046.50, 0.0, 0.08);
+        playNote(1046.50, 0.12, 0.08);
       } catch(e){}
     }
 
     function playGateSoundAlert() {
-      // Long low pitch buzzer sound for fail
       try {
         const ctx = getAudioContext();
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.connect(gain);
         gain.connect(ctx.destination);
-        osc.frequency.setValueAtTime(220, ctx.currentTime); // A3
+        osc.frequency.setValueAtTime(220, ctx.currentTime);
         gain.gain.setValueAtTime(0.08, ctx.currentTime);
         gain.gain.linearRampToValueAtTime(0.001, ctx.currentTime + 0.4);
         osc.start();
