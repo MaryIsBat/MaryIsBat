@@ -28,8 +28,8 @@ This repository features my complete, customized open-notebook style portfolio! 
 ### 👉 **How to Explore:**
 Simply open the `index.html` file in your web browser, or if hosted on GitHub Pages, visit the live link!
 
-🔗 **[Launch Live Notebook Portfolio (Click Here) ➔](https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/)**  
-*(Note: Replace `YOUR_GITHUB_USERNAME` and `YOUR_REPO_NAME` if deploying on GitHub Pages)*
+🔗 **[Launch Live Notebook Portfolio (Click Here) ➔](https://MaryIsBat.github.io/MaryIsBat/)**  
+
 
 ---
 
@@ -74,17 +74,6 @@ Inside the interactive portfolio (`index.html`), you can explore the following e
 
 ---
 
-## 🚀 How to Publish Live on GitHub Pages
-
-To make this HTML portfolio interactive for everyone on GitHub:
-1. PUSH this folder to a new public repository on your GitHub account.
-2. Go to your repository's **Settings** tab.
-3. Click on **Pages** in the left sidebar menu.
-4. Under **Build and deployment** -> **Source**, select **Deploy from a branch**.
-5. Choose your main branch (e.g., `main`) and set the folder path to `/ (root)`.
-6. Click **Save**. In a minute, your interactive portfolio will be live!
-
----
 
 ## 🦇 Connect with Me
 <div align="center">
