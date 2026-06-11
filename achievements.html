@@ -79,6 +79,7 @@
       justify-content: center;
       gap: 1rem;
       margin: 0.5rem 0;
+      flex-wrap: wrap;
     }
 
     .tab-btn {
@@ -113,12 +114,12 @@
 
     /* Content Area Styles */
     .tab-content {
-      display: none;
+      display: none !important;
       animation: fadeIn 0.4s ease-out forwards;
     }
 
     .tab-content.active {
-      display: block;
+      display: block !important;
     }
 
     @keyframes fadeIn {
@@ -212,6 +213,7 @@
       display: flex;
       flex-direction: column;
       transition: var(--transition);
+      cursor: pointer;
     }
 
     .cert-card:hover {
@@ -228,6 +230,9 @@
       cursor: zoom-in;
       overflow: hidden;
       border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .cert-img {
@@ -495,7 +500,7 @@
 
   <!-- Zoom Lightbox Modal -->
   <div id="lightboxModal" class="lightbox" onclick="closeLightbox()">
-    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <button class="lightbox-close" onclick="closeLightbox(); return false;">&times;</button>
     <img id="lightboxImg" src="" alt="Zoomed Certificate" class="lightbox-img" onclick="event.stopPropagation()">
     <div id="lightboxCaption" class="lightbox-caption"></div>
   </div>
@@ -511,10 +516,13 @@
       buttons.forEach(b => b.classList.remove('active'));
 
       // Activate selected tab
-      document.getElementById(tabId).classList.add('active');
-      btnElement.classList.add('active');
+      const selectedTab = document.getElementById(tabId);
+      if (selectedTab) {
+        selectedTab.classList.add('active');
+        btnElement.classList.add('active');
+      }
       
-      // Play a quick satisfying button click click
+      // Play a quick satisfying button click sound
       try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         const osc = audioCtx.createOscillator();
@@ -526,10 +534,12 @@
         gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
         osc.start();
         osc.stop(audioCtx.currentTime + 0.08);
-      } catch(e) {}
+      } catch(e) {
+        // Audio context not available, that's okay
+      }
     }
 
-    // Lightbox overlays functions
+    // Lightbox overlay functions
     function openLightbox(imgSrc, captionText) {
       const modal = document.getElementById("lightboxModal");
       const img = document.getElementById("lightboxImg");
