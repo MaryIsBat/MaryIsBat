@@ -29,7 +29,8 @@ This repository features my complete, customized open-notebook style portfolio! 
 Simply open the `index.html` file in your web browser, or if hosted on GitHub Pages, visit the live link!
 
 🔗 **[Launch Live Notebook Portfolio (Click Here) ➔](https://MaryIsBat.github.io/MaryIsBat/)**  
-
+IMPORTANT: When running the HTML file on github, the issue is that Github has a lot of troubling running CSS and HTML on their website, heavily recommend to download the files attached to this Repo and running it yourself. That will save you a lot of hassle.
+At the moment, it is currently being fixed and implemented to hopefully be able to run properly - Mary, 6/11
 
 ---
 
