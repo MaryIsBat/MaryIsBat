@@ -16,50 +16,35 @@
 </div>
 
 ## 🌑 Into the Batcave
-I am a student at **Huachiew Chalermprakiet University** with a passion for uncovering insights hidden within data. Like a bat using echolocation, I navigate complex datasets through the lens of data analysis and intelligent systems.
+I am a student at **Huachiew Chalermprakiet University** with a passion for uncovering insights hidden within data. Like a bat using echolocation, I navigate complex datasets through the lens of **Data Analysis** and **AI**. 
 
 My goal is to leverage **data understanding** and **intelligent systems** to drive informed decisions and create meaningful impact through data-driven storytelling.
 
 ---
 
-## 🎨 Interactive Portfolio Hub
+## 🌐 Live Interactive Notebook Portfolio
+This repository features my complete, customized open-notebook style portfolio! You can interact directly with my coding projects, visual presentations, and academic achievements through a retro folder tab interface complete with cozy sound ambiance and character hover interactions.
 
-Welcome to my **interactive portfolio**! This is a fully functional website where you can explore my projects, work, and achievements. Choose how you'd like to experience my portfolio:
-
-<div align="center">
-
-### **🌐 Portfolio Options:**
-
-[CHECK OUT MY PROJECTS COLLECTION!](https://img.shields.io/badge/📂%20Open%20Interactive%20Folder-Click%20Here-e94560?style=for-the-badge)](https://maryisbat.github.io/MaryIsBat/index.html)
-
-</div>
+### 🔗 [Launch Live Notebook Portfolio ➔](https://YOUR_GITHUB_USERNAME.github.io/MaryIsBat/)
+*(Note: Replace `YOUR_GITHUB_USERNAME` in the link with your actual GitHub username once deployed via GitHub Pages)*
 
 ---
 
-## 📂 My Projects & Lab Work
+## 📂 Featured Laboratory Notebook Tabs
+Inside the interactive portfolio, you can explore:
 
-Click any button below to explore each section of my portfolio:
-
-<div align="center">
-
-| Project | Description | Link |
-|---------|-------------|------|
-| **🌐 Web Hub** | Full-stack web applications and interactive pages | [Explore →](https://maryisbat.github.io/MaryIsBat/projects.html) |
-| **🏨 Hotel System** | Hotel management simulator with interactive features | [Explore →](https://maryisbat.github.io/MaryIsBat/projects.html) |
-| **🎤 Voice AI** | Voice recognition and AI-powered features | [Explore →](https://maryisbat.github.io/MaryIsBat/projects.html) |
-| **🎵 BTS Card** | Interactive card experience with engaging design | [Explore →](https://maryisbat.github.io/MaryIsBat/projects.html) |
-| **📊 Data Presentation** | Data visualization and insights showcase | [Explore →](https://maryisbat.github.io/MaryIsBat/projects.html) |
-| **🔊 Voice Detector** | Advanced voice detection capabilities | [Explore →](https://maryisbat.github.io/MaryIsBat/projects.html) |
-| **🏆 Achievements** | My accomplishments and milestones | [Explore →](https://maryisbat.github.io/MaryIsBat/projects.html) |
-
-</div>
-
-**💡 Pro Tip:** *For the best interactive experience, [open the full portfolio](https://maryisbat.github.io/MaryIsBat/index.html) to enjoy the animated character, folder interactions, and sound effects!*
+*   **Welcome Page ✨**: A brief introductory overview of my background and student journey.
+*   **Web Hub 🚀**: A complete collection of customized full-stack, responsive web applications.
+*   **Hotel Booking System 🏨**: An interactive simulation of a hotel room booking and dashboard system.
+*   **Voice AI Resemblyzer 🎙️**: A gorgeous, dedicated installation and setup console for the native Python desktop Tkinter speech embedding visualizer.
+*   **BTS Card Simulator 🎫**: An interactive visual mock emulator representing card systems and states.
+*   **Data Presentation 📊**: Embedded presentation files reviewing business data pipelines.
+*   **Voice Detector PDF 🗣️**: Analysis review regarding visual deep learning voice recognition assets.
+*   **Achievements & Certifications 🏆**: A timeline showcase detailing HCU scholarship work, Startup Thailand League pitches (**2025 Artket** & **2026 Thai Strike**), CS-AI tutoring, and interactive zoom lightbox viewable certificates.
 
 ---
 
 ## 🛠️ The Utility Belt
-
 <table width="100%">
   <tr>
     <td width="50%" valign="top">
@@ -76,7 +61,7 @@ Click any button below to explore each section of my portfolio:
       <ul>
         <li>Python, SQL, Bash</li>
         <li>Machine Learning Fundamentals (TensorFlow, PyTorch)</li>
-        <li>Web Development (HTML, CSS, JavaScript)</li>
+        <li>Automation & Scripting</li>
         <li>Data Analysis & Exploration</li>
       </ul>
     </td>
@@ -86,20 +71,31 @@ Click any button below to explore each section of my portfolio:
 ---
 
 ## 📊 Nightly Reconnaissance
-
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=MaryIsBat&show_icons=true&theme=tokyonight&hide_border=true" alt="GitHub Stats" />
+  <img src="https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME_HERE&show_icons=true&theme=tokyonight&hide_border=true" alt="GitHub Stats" />
 </p>
 
 ---
 
-## 🦇 Signal for Help (Connect with Me)
+## 🚀 How to Publish Live on GitHub Pages
+To make this HTML portfolio interactive for everyone on GitHub:
+1. PUSH this folder (`MaryIsBat`) to a new public repository on your GitHub account (e.g. `https://github.com/YOUR_GITHUB_USERNAME/MaryIsBat`).
+2. Go to your repository's **Settings** tab.
+3. Click on **Pages** in the left sidebar menu.
+4. Under **Build and deployment** -> **Source**, select **Deploy from a branch**.
+5. Choose your main branch (e.g., `main` or `master`) and set the folder path to `/ (root)`.
+6. Click **Save**.
+7. In a minute, your portfolio will be live at:
+   `https://YOUR_GITHUB_USERNAME.github.io/MaryIsBat/`
 
+---
+
+## 🦇 Signal for Help (Connect with Me)
 <div align="center">
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](YOUR_LINKEDIN_URL)
-[![🌐 Portfolio](https://img.shields.io/badge/🌐%20Portfolio-Visit%20Site-222222?style=for-the-badge&logo=globe&logoColor=white)](https://maryisbat.github.io/MaryIsBat/index.html)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:grace020871@gmail.com)
+[![Portfolio](https://img.shields.io/badge/Portfolio-222222?style=for-the-badge&logo=ko-fi&logoColor=white)](https://YOUR_GITHUB_USERNAME.github.io/MaryIsBat/)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your-email@example.com)
 
 <br />
 

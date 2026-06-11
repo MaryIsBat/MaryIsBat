@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Reservation Simulator - Java Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0d6efd;
+      --secondary: #6c757d;
+      --success: #198754;
+      --danger: #dc3545;
+      --warning: #ffc107;
+      --info: #0dcaf0;
+      --dark: #212529;
+      --light: #f8f9fa;
+      --card-bg: #ffffff;
+      
+      --luxury-maroon: #8c0c10;
+      --luxury-gold: #f4b251;
+      
+      --border-radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: #f3f5f8;
+      color: #333333;
+      padding: 1rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      background: linear-gradient(135deg, var(--luxury-maroon) 0%, #5d080b 100%);
+      color: #ffffff;
+      padding: 1.2rem 1.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 20px rgba(140, 12, 16, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid var(--luxury-gold);
+    }
+
+    .top-bar h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .top-bar h1 i {
+      color: var(--luxury-gold);
+    }
+
+    .badge-java {
+      background: rgba(244, 178, 81, 0.2);
+      border: 1px solid var(--luxury-gold);
+      color: var(--luxury-gold);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    /* Main Console Grid */
+    .console-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 1rem;
+      flex-grow: 1;
+    }
+
+    /* Sidebar Navigation */
+    .nav-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 1rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+      border: 1px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: #555;
+      text-align: left;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: var(--transition);
+    }
+
+    .nav-btn:hover {
+      background: #f1f5f9;
+      color: var(--luxury-maroon);
+    }
+
+    .nav-btn.active {
+      background: rgba(140, 12, 16, 0.08);
+      color: var(--luxury-maroon);
+      border-left: 4px solid var(--luxury-maroon);
+      border-radius: 0 8px 8px 0;
+      padding-left: 12px;
+    }
+
+    .nav-btn i {
+      font-size: 1.1rem;
+    }
+
+    /* Content Area */
+    .content-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+      border: 1px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      min-height: 380px;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      color: #2d3748;
+      border-bottom: 2px solid #edf2f7;
+      padding-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #4a5568;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e0;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .form-input:focus {
+      border-color: var(--luxury-maroon);
+      box-shadow: 0 0 0 3px rgba(140, 12, 16, 0.15);
+    }
+
+    /* Grid of choices */
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 5px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f8fafc;
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .checkbox-item input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--luxury-maroon);
+    }
+
+    .checkbox-item:hover {
+      border-color: #cbd5e0;
+      background: #f1f5f9;
+    }
+
+    .checkbox-item.checked {
+      background: rgba(140, 12, 16, 0.04);
+      border-color: var(--luxury-maroon);
+    }
+
+    /* Room Picker Layout */
+    .room-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .room-box {
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      padding: 12px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      background: #f8fafc;
+    }
+
+    .room-box h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .room-box p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .room-box span {
+      display: inline-block;
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 12px;
+      font-weight: bold;
+      background: #e2e8f0;
+      color: #4a5568;
+    }
+
+    .room-box:hover:not(.occupied) {
+      border-color: var(--luxury-maroon);
+      background: rgba(140, 12, 16, 0.03);
+    }
+
+    .room-box.selected {
+      border-color: var(--luxury-maroon);
+      background: rgba(140, 12, 16, 0.08);
+      box-shadow: 0 0 0 2px var(--luxury-maroon);
+    }
+
+    .room-box.selected span {
+      background: var(--luxury-maroon);
+      color: #ffffff;
+    }
+
+    .room-box.occupied {
+      background: #fee2e2;
+      border-color: #fca5a5;
+      cursor: not-allowed;
+    }
+
+    .room-box.occupied span {
+      background: #ef4444;
+      color: #ffffff;
+    }
+
+    /* Custom Buttons */
+    .btn-submit {
+      background: var(--luxury-maroon);
+      color: #ffffff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 1.5rem;
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(140, 12, 16, 0.2);
+      transition: var(--transition);
+    }
+
+    .btn-submit:hover {
+      background: #730a0d;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(140, 12, 16, 0.3);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    /* Receipt Style */
+    .receipt {
+      background: #fffff8;
+      border: 2px dashed #cbd5e0;
+      padding: 1.5rem;
+      border-radius: 8px;
+      font-family: monospace;
+      color: #1a1a1a;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+      margin-top: 1rem;
+      position: relative;
+    }
+
+    .receipt-header {
+      text-align: center;
+      border-bottom: 1px dashed #cbd5e0;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+
+    .receipt-title {
+      font-weight: bold;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+    }
+
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .receipt-total {
+      border-top: 1px dashed #cbd5e0;
+      margin-top: 12px;
+      padding-top: 10px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: var(--luxury-maroon);
+    }
+
+    /* Customer Table View */
+    .table-container {
+      overflow-x: auto;
+      flex-grow: 1;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    th {
+      background: #f8fafc;
+      font-weight: 700;
+      color: #4a5568;
+    }
+
+    tr:hover {
+      background: #f8fafc;
+    }
+
+    .badge-paid {
+      background: #dcfce7;
+      color: #15803d;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* Modal / Alert Dialog mockup */
+    .dialog-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .dialog-box {
+      background: white;
+      border-radius: var(--border-radius);
+      width: 320px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      border-top: 4px solid var(--luxury-maroon);
+      text-align: center;
+      animation: scaleIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .dialog-box h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .dialog-box p {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 1.2rem;
+      line-height: 1.4;
+    }
+
+    .dialog-btn {
+      background: var(--luxury-maroon);
+      color: white;
+      border: none;
+      padding: 8px 24px;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.9); }
+      to { transform: scale(1); }
+    }
+
+    @media (max-width: 768px) {
+      .console-layout {
+        grid-template-columns: 1fr;
+      }
+      .checkbox-grid {
+        grid-template-columns: 1fr;
+      }
+      .room-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header class="top-bar">
+      <h1><i class="bi bi-bank"></i> Royal Palace Hotel Console</h1>
+      <span class="badge-java"><i class="bi bi-code-slash"></i> HotelSystem.class</span>
+    </header>
+
+    <main class="console-layout">
+      <!-- Navigation Tabs Sidebar -->
+      <nav class="nav-card">
+        <button class="nav-btn active" onclick="showTab('add-booking', this)">
+          <i class="bi bi-person-plus-fill"></i> Add Booking
+        </button>
+        <button class="nav-btn" onclick="showTab('bookings-directory', this)">
+          <i class="bi bi-journal-text"></i> Bookings List
+        </button>
+        <button class="nav-btn" onclick="showTab('room-map', this)">
+          <i class="bi bi-grid-3x3-gap-fill"></i> Room Status Map
+        </button>
+        <button class="nav-btn" onclick="showTab('search-booking', this)">
+          <i class="bi bi-search"></i> Search Booking
+        </button>
+      </nav>
+
+      <!-- Main Showcase Pane -->
+      <section class="content-card">
+        
+        <!-- Add Booking Tab -->
+        <div id="tab-add-booking" class="tab-pane">
+          <h2 class="section-title"><i class="bi bi-person-plus"></i> Customer Registration Wizard</h2>
+          
+          <div class="form-group">
+            <label class="form-label" for="cust-name">Customer Name:</label>
+            <input type="text" class="form-input" id="cust-name" placeholder="Enter full name...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cust-phone">Customer Phone Number:</label>
+            <input type="text" class="form-input" id="cust-phone" placeholder="Enter phone number...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cust-days">How many days will they stay?</label>
+            <input type="number" class="form-input" id="cust-days" value="1" min="1">
+          </div>
+
+          <div class="form-group" style="margin-top: 1.2rem;">
+            <label class="form-label">Select Room Number:</label>
+            <p style="font-size: 0.8rem; color: #718096; margin-bottom: 8px;">Rooms 1-5 (Big) cost 500฿/day, 6-10 (Small) cost 350฿/day.</p>
+            <div class="room-grid" id="roomPickerGrid">
+              <!-- Dynamically rendered rooms -->
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 1.2rem;">
+            <label class="form-label">Select Necessities (100฿ each):</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-item" id="chk-label-1">
+                <input type="checkbox" id="chk-ness-1" onchange="toggleCheckboxClass(1)">
+                Gym (100฿)
+              </label>
+              <label class="checkbox-item" id="chk-label-2">
+                <input type="checkbox" id="chk-ness-2" onchange="toggleCheckboxClass(2)">
+                Swimming Pool (100฿)
+              </label>
+              <label class="checkbox-item" id="chk-label-3">
+                <input type="checkbox" id="chk-ness-3" onchange="toggleCheckboxClass(3)">
+                Breakfast (100฿)
+              </label>
+              <label class="checkbox-item" id="chk-label-4">
+                <input type="checkbox" id="chk-ness-4" onchange="toggleCheckboxClass(4)">
+                Bar Drinks (100฿)
+              </label>
+              <label class="checkbox-item" id="chk-label-5">
+                <input type="checkbox" id="chk-ness-5" onchange="toggleCheckboxClass(5)">
+                Laundry (100฿)
+              </label>
+              <label class="checkbox-item" id="chk-label-6">
+                <input type="checkbox" id="chk-ness-6" onchange="toggleCheckboxClass(6)">
+                Roll away bed (100฿)
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 1.2rem;">
+            <label class="form-label" for="cust-payment">Payment Method:</label>
+            <select class="form-input" id="cust-payment">
+              <option value="Cash">Cash</option>
+              <option value="Paid online">Online</option>
+              <option value="Credit/Debit card">Credit/Debit card</option>
+            </select>
+          </div>
+
+          <button class="btn-submit" onclick="submitBooking()"><i class="bi bi-check-circle-fill"></i> Complete Booking</button>
+        </div>
+
+        <!-- Bookings Directory Tab -->
+        <div id="tab-bookings-directory" class="tab-pane" style="display:none;">
+          <h2 class="section-title"><i class="bi bi-journal-text"></i> Active Bookings Directory</h2>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>CID</th>
+                  <th>Name</th>
+                  <th>Room</th>
+                  <th>Days</th>
+                  <th>Payment</th>
+                  <th>Total Amount</th>
+                </tr>
+              </thead>
+              <tbody id="bookingsTableBody">
+                <!-- Dynamically populated -->
+                <tr>
+                  <td colspan="6" style="text-align: center; color: #888; padding: 2rem;">No active bookings found.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Room Status Map Tab -->
+        <div id="tab-room-map" class="tab-pane" style="display:none;">
+          <h2 class="section-title"><i class="bi bi-grid-3x3-gap-fill"></i> Interactive Room Status Map</h2>
+          
+          <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 10px; color: var(--luxury-maroon);">Luxury Big Suites (500฿ / Day)</h3>
+          <div class="room-grid" id="bigRoomsGrid" style="margin-bottom: 1.5rem;">
+            <!-- Dynamically populated -->
+          </div>
+
+          <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 10px; color: #3182ce;">Comfort Small Rooms (350฿ / Day)</h3>
+          <div class="room-grid" id="smallRoomsGrid">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Search Booking Tab -->
+        <div id="tab-search-booking" class="tab-pane" style="display:none;">
+          <h2 class="section-title"><i class="bi bi-search"></i> Search Customer Booking</h2>
+          <div class="form-group" style="display: flex; gap: 10px; align-items: flex-end;">
+            <div style="flex-grow: 1;">
+              <label class="form-label" for="search-input">Enter Customer ID (CID):</label>
+              <input type="text" class="form-input" id="search-input" placeholder="e.g. A3K9R">
+            </div>
+            <button class="btn-submit" style="margin-top: 0; width: auto; padding: 10px 24px;" onclick="searchBooking()">Search</button>
+          </div>
+
+          <div id="search-result-area" style="margin-top: 1.5rem;">
+            <!-- Render found customer invoice/receipt here -->
+          </div>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <!-- Mock Java Dialog Window -->
+  <div class="dialog-overlay" id="dialogOverlay">
+    <div class="dialog-box">
+      <h3 id="dialogTitle">Java Dialog Message</h3>
+      <p id="dialogMsg">This is a message from JOptionPane.</p>
+      <button class="dialog-btn" onclick="closeDialog()">OK</button>
+    </div>
+  </div>
+
+  <script>
+    // In-memory data mirroring Java model
+    const rooms = [];
+    const bookings = [];
+
+    // Prepopulate rooms (5 Big, 5 Small)
+    function initRooms() {
+      // Big
+      for (let i = 1; i <= 5; i++) {
+        rooms.push({
+          number: "B" + i,
+          type: "Big",
+          price: 500,
+          occupied: false,
+          index: i // 1-indexed for selection simplicity matching Java
+        });
+      }
+      // Small
+      for (let i = 6; i <= 10; i++) {
+        rooms.push({
+          number: "S" + i,
+          type: "Small",
+          price: 350,
+          occupied: false,
+          index: i
+        });
+      }
+    }
+
+    let selectedRoomIdx = -1;
+
+    function renderRooms() {
+      const picker = document.getElementById('roomPickerGrid');
+      const bigGrid = document.getElementById('bigRoomsGrid');
+      const smallGrid = document.getElementById('smallRoomsGrid');
+      
+      picker.innerHTML = '';
+      bigGrid.innerHTML = '';
+      smallGrid.innerHTML = '';
+
+      rooms.forEach((r, idx) => {
+        // Render in Booking wizard
+        const box = document.createElement('div');
+        box.className = `room-box ${r.occupied ? 'occupied' : ''} ${selectedRoomIdx === idx ? 'selected' : ''}`;
+        box.onclick = () => {
+          if (!r.occupied) selectRoom(idx);
+        };
+        box.innerHTML = `
+          <h4>${r.number}</h4>
+          <p>${r.price}฿/day</p>
+          <span>${r.occupied ? 'Occupied' : 'Select'}</span>
+        `;
+        picker.appendChild(box);
+
+        // Render in map
+        const boxMap = box.cloneNode(true);
+        boxMap.onclick = null; // Map is view-only
+        if (r.type === "Big") {
+          bigGrid.appendChild(boxMap);
+        } else {
+          smallGrid.appendChild(boxMap);
+        }
+      });
+    }
+
+    function selectRoom(index) {
+      selectedRoomIdx = index;
+      playBeep(440, 0.1);
+      renderRooms();
+      
+      // Mimic Swing Details confirmation dialog
+      const room = rooms[index];
+      showJavaDialog(
+        "Selected Room Details",
+        `Room Number: Room Number: ${room.number}\nRoom Type: ${room.type}\nRoom Price: ${room.price}฿\n\nRoom Number: ${room.number} is now booked (pending registration).`
+      );
+    }
+
+    function toggleCheckboxClass(id) {
+      playBeep(520, 0.08);
+      const chk = document.getElementById(`chk-ness-${id}`);
+      const label = document.getElementById(`chk-label-${id}`);
+      if (chk.checked) {
+        label.classList.add('checked');
+      } else {
+        label.classList.remove('checked');
+      }
+    }
+
+    // Alphanumeric CID generator matching `getSaltString()` in Java
+    function getSaltString() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+      let salt = "";
+      for (let i = 0; i < 5; i++) {
+        salt += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return salt;
+    }
+
+    // Submit Booking logic
+    function submitBooking() {
+      const name = document.getElementById('cust-name').value.trim();
+      const phone = document.getElementById('cust-phone').value.trim();
+      const daysInput = document.getElementById('cust-days').value;
+      const days = parseInt(daysInput);
+      const payment = document.getElementById('cust-payment').value;
+
+      if (!name || !phone || isNaN(days) || days <= 0) {
+        showJavaDialog("Validation Error", "Please fill in all customer fields with valid details.");
+        return;
+      }
+
+      if (selectedRoomIdx === -1) {
+        showJavaDialog("Selection Error", "Please select a room number from the list.");
+        return;
+      }
+
+      const room = rooms[selectedRoomIdx];
+
+      // Calculate necessities
+      let nessCount = 0;
+      let nessList = [];
+      const nessItems = ["Gym", "Swimming Pool", "Breakfast", "Bar Drinks", "Laundry", "Roll away bed"];
+      for (let i = 1; i <= 6; i++) {
+        if (document.getElementById(`chk-ness-${i}`).checked) {
+          nessCount++;
+          nessList.push(nessItems[i-1]);
+        }
+      }
+      const nessPrice = nessCount * 100;
+
+      // Final Math
+      const totalPrice = (room.price + nessPrice) * days;
+      const cid = getSaltString();
+
+      // Create Booking
+      const booking = {
+        cid,
+        name,
+        phone,
+        days,
+        roomNum: room.number,
+        nessPrice,
+        nessList,
+        roomPrice: room.price,
+        payment,
+        totalPrice
+      };
+
+      // Set room as occupied
+      room.occupied = true;
+      bookings.push(booking);
+
+      // Play success chime
+      playChime();
+
+      // Reset Wizard state
+      document.getElementById('cust-name').value = '';
+      document.getElementById('cust-phone').value = '';
+      document.getElementById('cust-days').value = 1;
+      for (let i = 1; i <= 6; i++) {
+        document.getElementById(`chk-ness-${i}`).checked = false;
+        document.getElementById(`chk-label-${i}`).classList.remove('checked');
+      }
+      selectedRoomIdx = -1;
+      renderRooms();
+
+      // Show Receipt / JOptionPane dialog
+      showJavaDialog(
+        "Booking Success", 
+        `Room Price: ${room.price}฿\nNecessity Price: ${nessPrice}฿\nTotal Price Calculated: ${totalPrice}฿\n\nGenerated Customer ID (CID): ${cid}`
+      );
+      
+      // Update Booking List Table
+      updateBookingsTable();
+    }
+
+    function updateBookingsTable() {
+      const tbody = document.getElementById('bookingsTableBody');
+      if (bookings.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #888; padding: 2rem;">No active bookings found.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = '';
+      bookings.forEach(b => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><strong>${b.cid}</strong></td>
+          <td>${b.name}</td>
+          <td><span class="badge-paid" style="background:#e0f2fe; color:#0369a1;">Room ${b.roomNum}</span></td>
+          <td>${b.days} Days</td>
+          <td><span class="badge-paid">${b.payment}</span></td>
+          <td style="font-weight: 600; color: var(--luxury-maroon);">${b.totalPrice}฿</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function searchBooking() {
+      const cid = document.getElementById('search-input').value.trim().toUpperCase();
+      const resultArea = document.getElementById('search-result-area');
+      
+      if (!cid) {
+        showJavaDialog("Search Input Required", "Please enter a valid Customer ID (CID) to perform search.");
+        return;
+      }
+
+      const match = bookings.find(b => b.cid === cid);
+
+      if (!match) {
+        resultArea.innerHTML = `
+          <div style="background:#fee2e2; color:#ef4444; border:1px solid #fca5a5; padding:1rem; border-radius:8px; text-align:center;">
+            <i class="bi bi-x-circle-fill"></i> Customer with ID <strong>${cid}</strong> not found in database.
+          </div>
+        `;
+        showJavaDialog("Search Result", `Customer with ID ${cid} not found.`);
+        return;
+      }
+
+      // Render custom Receipt/Invoice inside search area
+      resultArea.innerHTML = `
+        <div class="receipt">
+          <div class="receipt-header">
+            <div class="receipt-title">ROYAL PALACE HOTEL</div>
+            <div style="font-size:0.75rem; color:#777; margin-top:2px;">INVOICE RECEIPT</div>
+          </div>
+          <div class="receipt-row"><span>CUSTOMER ID:</span><strong>${match.cid}</strong></div>
+          <div class="receipt-row"><span>CUSTOMER NAME:</span><strong>${match.name}</strong></div>
+          <div class="receipt-row"><span>PHONE NUMBER:</span><strong>${match.phone}</strong></div>
+          <div class="receipt-row"><span>ROOM RESERVED:</span><strong>Room ${match.roomNum}</strong></div>
+          <div class="receipt-row"><span>STAY DURATION:</span><strong>${match.days} Days</strong></div>
+          <div class="receipt-row"><span>PAYMENT METHOD:</span><strong>${match.payment}</strong></div>
+          
+          <div class="receipt-row" style="margin-top:10px; border-top:1px dashed #bbb; padding-top:8px;">
+            <span>ROOM RATE:</span><span>${match.roomPrice}฿ / day</span>
+          </div>
+          <div class="receipt-row">
+            <span>NECESSITIES:</span><span>${match.nessPrice}฿ total</span>
+          </div>
+          <div class="receipt-row" style="color:#777; font-size:0.8rem; padding-left:10px;">
+            <span>(${match.nessList.join(', ') || 'None'})</span>
+          </div>
+
+          <div class="receipt-total receipt-row">
+            <span>TOTAL AMOUNT:</span><span>${match.totalPrice}฿</span>
+          </div>
+        </div>
+      `;
+      playBeep(660, 0.15);
+    }
+
+    // Navigation switching
+    function showTab(tabId, el) {
+      playBeep(800, 0.05);
+      
+      // Tabs reset
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      el.classList.add('active');
+
+      // Panels reset
+      document.querySelectorAll('.tab-pane').forEach(panel => panel.style.display = 'none');
+      document.getElementById(`tab-${tabId}`).style.display = 'block';
+    }
+
+    // Swing Dialog Modal Mimicry
+    function showJavaDialog(title, text) {
+      document.getElementById('dialogTitle').textContent = title;
+      document.getElementById('dialogMsg').innerText = text;
+      document.getElementById('dialogOverlay').style.display = 'flex';
+    }
+
+    function closeDialog() {
+      playBeep(350, 0.06);
+      document.getElementById('dialogOverlay').style.display = 'none';
+    }
+
+    // Audio effects utilizing Browser audio context
+    function getAudioCtx() {
+      return new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    function playBeep(freq, dur) {
+      try {
+        const ctx = getAudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.04, ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.001, ctx.currentTime + dur);
+        osc.start();
+        osc.stop(ctx.currentTime + dur);
+      } catch(e){}
+    }
+
+    function playChime() {
+      try {
+        const ctx = getAudioCtx();
+        const playNote = (freq, start, dur) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + start);
+          gain.gain.setValueAtTime(0.04, ctx.currentTime + start);
+          gain.gain.linearRampToValueAtTime(0.001, ctx.currentTime + start + dur);
+          osc.start(ctx.currentTime + start);
+          osc.stop(ctx.currentTime + start + dur);
+        };
+        playNote(523.25, 0.0, 0.15); // C5
+        playNote(659.25, 0.08, 0.15); // E5
+        playNote(783.99, 0.16, 0.3); // G5
+      } catch(e){}
+    }
+
+    window.onload = () => {
+      initRooms();
+      renderRooms();
+    };
+  </script>
+</body>
+</html>
