@@ -36,7 +36,7 @@ Inside the interactive portfolio, you can explore:
 *   **Welcome Page ✨**: A brief introductory overview of my background and student journey.
 *   **Web Hub 🚀**: A complete collection of customized full-stack, responsive web applications.
 *   **Hotel Booking System 🏨**: An interactive simulation of a hotel room booking and dashboard system.
-*   **Voice AI Resemblyzer 🎙️**: A gorgeous, dedicated installation and setup console for the native Python desktop Tkinter speech embedding visualizer.
+*   **Voice AI Comparer 🎙️**: A gorgeous, dedicated installation and setup console for the native Python desktop Tkinter speech embedding visualizer.
 *   **BTS Card Simulator 🎫**: An interactive visual mock emulator representing card systems and states.
 *   **Data Presentation 📊**: Embedded presentation files reviewing business data pipelines.
 *   **Voice Detector PDF 🗣️**: Analysis review regarding visual deep learning voice recognition assets.
