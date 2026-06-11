@@ -6,6 +6,7 @@
   <title>Presentation Hub - Mary Grace Hernandez</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <style>
     :root {
       --primary-color: #8c0c10;
@@ -109,16 +110,65 @@
       background: var(--bg-card);
       border-radius: var(--border-radius);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-      overflow: hidden;
+      overflow: auto;
       border: 1px solid #e1e8ed;
-      min-height: 250px;
+      min-height: 400px;
     }
 
-    .pdf-frame {
-      width: 100%;
-      height: 100%;
-      flex-grow: 1;
+    .pdf-canvas-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      padding: 2rem;
+      background: #f9f9f9;
+    }
+
+    #pdfCanvas {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .pdf-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      border-top: 1px solid #e1e8ed;
+      background: #fafafa;
+      flex-wrap: wrap;
+    }
+
+    .pdf-page-info {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      min-width: 150px;
+      text-align: center;
+    }
+
+    .control-btn {
+      background: var(--primary-color);
+      color: white;
       border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .control-btn:hover {
+      background: var(--primary-color);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(140, 12, 16, 0.2);
+    }
+
+    .control-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
     /* Fallback UI if PDF cannot render */
@@ -130,6 +180,10 @@
       padding: 3rem;
       text-align: center;
       height: 100%;
+    }
+
+    .pdf-fallback.show {
+      display: flex;
     }
 
     .pdf-fallback i {
@@ -160,6 +214,10 @@
         width: 100%;
         justify-content: space-between;
       }
+      .pdf-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
     }
   </style>
 </head>
@@ -171,7 +229,7 @@
       <p id="doc-desc">Canva Project Presentation</p>
     </div>
     <div class="actions">
-      <button class="btn btn-accent" id="toggleBtn" onclick="togglePresentation()">
+      <button class="btn btn-accent" onclick="togglePresentation()">
         <i class="bi bi-arrow-left-right"></i> Switch Slide
       </button>
       <a href="#" class="btn" id="downloadBtn" download>
@@ -181,11 +239,26 @@
   </header>
 
   <main class="viewer-container">
-    <iframe src="" class="pdf-frame" id="pdfViewer" aria-label="PDF Viewer"></iframe>
+    <div class="pdf-canvas-container">
+      <canvas id="pdfCanvas"></canvas>
+    </div>
+    
+    <div class="pdf-controls">
+      <button class="control-btn" onclick="previousPage()" id="prevBtn">
+        <i class="bi bi-chevron-left"></i> Previous
+      </button>
+      <div class="pdf-page-info">
+        <span id="pageNum">1</span> / <span id="pageCount">1</span>
+      </div>
+      <button class="control-btn" onclick="nextPage()" id="nextBtn">
+        Next <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+
     <div class="pdf-fallback" id="fallback">
       <i class="bi bi-file-earmark-pdf"></i>
-      <h3>Cannot Load PDF Viewer?</h3>
-      <p>Your browser or device might not support inline PDF viewing. You can download the full PDF to view it on your device.</p>
+      <h3>Cannot Load PDF?</h3>
+      <p>There was an issue loading the PDF. You can download it directly to view on your device.</p>
       <a href="#" class="btn" id="fallbackDownloadBtn" download>
         <i class="bi bi-download"></i> Download Presentation
       </a>
@@ -193,6 +266,9 @@
   </main>
 
   <script>
+    // Set up PDF.js
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
     // Project PDF Configurations
     const docs = {
       data: {
@@ -208,55 +284,110 @@
     };
 
     let currentDocKey = "data";
+    let pdfDoc = null;
+    let pageNum = 1;
+    let pageCount = 1;
+    let isLoading = false;
 
-    function init() {
+    async function init() {
       // Check query parameter
       const urlParams = new URLSearchParams(window.location.search);
       const fileParam = urlParams.get('file');
-      
+
       if (fileParam && docs[fileParam]) {
         currentDocKey = fileParam;
       }
-      
+
       loadDocument(currentDocKey);
     }
 
-    function loadDocument(key) {
+    async function loadDocument(key) {
       currentDocKey = key;
       const doc = docs[key];
-      
+
       document.getElementById('doc-title').textContent = doc.title;
       document.getElementById('doc-desc').textContent = doc.desc;
-      
+
       const pdfPath = doc.file;
-      const pdfViewer = document.getElementById('pdfViewer');
-      
-      pdfViewer.src = pdfPath;
       document.getElementById('downloadBtn').href = pdfPath;
       document.getElementById('fallbackDownloadBtn').href = pdfPath;
 
-      // Simple detection for potential loading errors (e.g. on devices without native viewer)
-      pdfViewer.onerror = function() {
-        pdfViewer.style.display = 'none';
-        document.getElementById('fallback').style.display = 'flex';
-      };
+      try {
+        isLoading = true;
+        pdfDoc = await pdfjsLib.getDocument(pdfPath).promise;
+        pageCount = pdfDoc.numPages;
+        pageNum = 1;
+        updatePageInfo();
+        renderPage(pageNum);
+        document.getElementById('fallback').classList.remove('show');
+      } catch (error) {
+        console.error('Error loading PDF:', error);
+        showFallback();
+      }
+    }
+
+    async function renderPage(num) {
+      if (!pdfDoc || isLoading) return;
+
+      try {
+        isLoading = true;
+        const page = await pdfDoc.getPage(num);
+        const viewport = page.getViewport({ scale: 2 });
+        const canvas = document.getElementById('pdfCanvas');
+        const context = canvas.getContext('2d');
+
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+        const renderContext = {
+          canvasContext: context,
+          viewport: viewport
+        };
+
+        await page.render(renderContext).promise;
+        updatePageInfo();
+      } catch (error) {
+        console.error('Error rendering page:', error);
+        showFallback();
+      } finally {
+        isLoading = false;
+      }
+    }
+
+    function updatePageInfo() {
+      document.getElementById('pageNum').textContent = pageNum;
+      document.getElementById('pageCount').textContent = pageCount;
+      document.getElementById('prevBtn').disabled = pageNum <= 1;
+      document.getElementById('nextBtn').disabled = pageNum >= pageCount;
+    }
+
+    function nextPage() {
+      if (pageNum < pageCount) {
+        pageNum++;
+        renderPage(pageNum);
+      }
+    }
+
+    function previousPage() {
+      if (pageNum > 1) {
+        pageNum--;
+        renderPage(pageNum);
+      }
     }
 
     function togglePresentation() {
       const nextKey = currentDocKey === "data" ? "voice" : "data";
-      
+
       // Update URL query parameters silently
       const newUrl = window.location.pathname + "?file=" + nextKey;
       window.history.pushState({ path: newUrl }, '', newUrl);
-      
+
       loadDocument(nextKey);
-      
-      // Try to play parent's tab change sound if accessible
-      try {
-        if (window.parent && typeof window.parent.playTabSound === 'function') {
-          window.parent.playTabSound();
-        }
-      } catch (e) {}
+    }
+
+    function showFallback() {
+      document.getElementById('fallback').classList.add('show');
+      isLoading = false;
     }
 
     window.onload = init;
